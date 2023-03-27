@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block loader %} {% include 'loader.html' %} {% endblock loader %}
+{% block header %} {% include 'header.html' %}{% endblock header %}
+{% block banner %} {% include 'banner.html' %}{% endblock banner %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row fdet">
+        <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-6">
+                <img src="{{detail.pix.url}}" class="img-fluid rounded-start" style="height: 60vh;" width="500px" alt="...">
+              </div>
+              <div class="col-md-6 fdet">
+                <div class="card-body">
+                  <h5 class="card-title">{{detail.name|title}}</h5>
+                  <h5 class="card-title">&#8358<!---->{{detail.price}}</h5>
+                  <hr>
+                  <p class="card-text">{{detail.description|title}}</p>
+                  <form action="{% url 'add_to_cart' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="productid" value="{{detail.id}}">
+                    <button type="submit" class="btn btn-warning">Add to cart</button>
+                </form>
+                    <p class="fdetcat">category: <span>{{detail.category|title}}</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>    
+{% endblock content %}
+{% block footer %} {% include 'footer.html' %}{% endblock footer %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block loader %} {% include 'loader.html' %} {% endblock loader %}
+{% block header %} {% include 'header.html' %}{% endblock header %}
+{% block banner %} {% include 'banner.html' %}{% endblock banner %}
+{% block content %}
+
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="col-12 col-md-3 pavat">
+      <img src="{{userprof.pix.url}}" alt="">
+      <p>{{userprof.user}}</p>
+      <hr>
+      <ul class="list-unstyled">
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'profile_update' %}">Profile Update</a></li>
+        <li><a href="{% url 'password_update' %}">Password Update</a></li>
+      </ul>
+
+    </div>
+    <div class="col-12 col-md-9 pdet">
+      <table>
+        <h2 class="text-center">Profile</h2>
+        <tbody>
+          <tr>
+            <td class="left">First Name</td>
+            <td class="right">{{userprof.first_name|title}}</td>
+          </tr>
+          <tr>
+            <td class="left">Last Name</td>
+            <td class="right">{{userprof.last_name}}</td>
+          </tr>
+          <tr>
+            <td class="left">Email</td>
+            <td class="right">{{userprof.email}}</td>
+          </tr>
+          <tr>
+            <td class="left">Phone</td>
+            <td class="right">{{userprof.phone}}</td>
+          </tr>
+          <tr>
+            <td class="left">Address</td>
+            <td class="right">{{userprof.address}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
+   
+{% block footer %} {% include 'footer.html' %}{% endblock footer %}
+    

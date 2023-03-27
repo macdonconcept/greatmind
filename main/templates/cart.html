@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block loader %} {% include 'loader.html' %} {% endblock loader %}
+{% block header %} {% include 'header.html' %}{% endblock header %}
+{% block banner %} {% include 'banner.html' %}{% endblock banner %}
+{% block content %}
+
+<!-- content -->
+<div class="container mt-5">
+    <h1 class="title">your shop cart</h1>
+    <div class="row cart mb-5">
+        <table>
+            <thead>
+                <th>action</th>
+                <th>image</th>
+                <th>item</th>
+                <th>price</th>
+                <th>quanitty</th>
+                <th>amount</th>
+            </thead>
+            <tbody>
+                
+                {% for product in cart %}
+                <tr class="item">
+                    <form action="{% url 'delete' %}" method="POST">
+                        {% csrf_token %}
+                        
+                        <td>
+                            <input type="hidden" name="delid" value="{{product.id}}">
+                            <button type="submit"><i class="bi bi-trash3-fill"></i></button>
+                        </td>
+                    </form>
+                    <td><img src="{{product.furniture.pix.url}}" alt="" style="height: 50px;"></td>
+                    <td><span>{{product.furniture.name}}</span></td>
+                    <td>{{product.price}}</td>
+                    <form action=" {% url 'update' %}" method="POST">
+                        {% csrf_token %}
+                        <td>
+                            <input type="hidden" name="productid" value="{{product.id}}">
+                            <input type="number" name="quant" value="{{product.quantity}}" min="1" max="30">
+                            <button type="submit" class="btn btn-primary">update</button>
+                        </td>
+                    </form>
+                    <td>{{product.amount}}</td>
+                </tr>
+                {% endfor %}  
+                <tr class="subtot">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Subtotal</td>
+                    <td>{{subtotal}}</td>
+                </tr>
+                <tr class="subtot">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Vat</td>
+                    <td>{{vat}}</td>
+                </tr>
+                <tr class="subtot">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>{{total}}</td>
+                </tr>
+                <tr class="checkbtn">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-success mb-5 mt-5"><a href="{% url 'checkout' %}">Checkout</a></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <!-- content done -->
+   {% endblock content %}
+   
+   {% block footer %} {% include 'footer.html' %}{% endblock footer %}
+    
